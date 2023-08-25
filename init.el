@@ -6,21 +6,36 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(require 'package)
+
 
 ;; 使用国内镜像
-(setq package-archives '(("gnu"   . "http://mirrors.cloud.tencent.com/elpa/gnu/")
-                         ("melpa" . "http://mirrors.cloud.tencent.com/elpa/melpa/")))
+(require 'package)
+
+; (setq package-archives '(("gnu"   . "http://mirrors.cloud.tencent.com/elpa/gnu/")
+;                          ("melpa" . "http://mirrors.cloud.tencent.com/elpa/melpa/")))
+; (setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;                          ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+(setq package-archives '(("gnu" . "https://mirrors.163.com/elpa/gnu/")
+                         ("melpa" . "https://mirrors.163.com/elpa/melpa/")))
 
 
+; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+; (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
 ;; 配置使用代理
+; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ; 不加这一句可能有问题，建议读者尝试一下
 ; (setq url-proxy-services
 ;    '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
 ;      ("http" . "192.168.8.163:8118")
 ;      ("https" . "192.168.8.163:8118")))
 
 
-(package-initialize)
+
 
 
 (setq elpy-rpc-python-command "/usr/bin/python3")
@@ -79,6 +94,18 @@
 ;; -------------功能增强类插件结束 -----------
 
 
+;; ------------- 编程类插件 ------------------
+; company-mode 安装失败company安装成功 company-box安装后不可用，应该是两个版本不对应
+; (require 'init-company-mode)
+; elpy 代码自动补全
+; (require 'init-elpy)
+
+
+
+;; ------------- 编程类插件结束 --------------
+
+
+
 ;; 配置jedi
 (require 'init-jedi)
 
@@ -119,11 +146,11 @@
  '(custom-safe-themes
    '("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(package-selected-packages
-   '(exec-path-from-shell gnu-elpa-keyring-update fullframe seq ## elpy)))
+   '(elpygen zzz-to-char lsp-ui lsp-mode exec-path-from-shell gnu-elpa-keyring-update fullframe seq ## elpy)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "宋体" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
 (put 'upcase-region 'disabled nil)
